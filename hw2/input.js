@@ -22,6 +22,19 @@ workspaceDiv.addEventListener("click", function () {
   });
 });
 
+workspaceDiv.addEventListener("pointerdown", function (event) {
+  if (event.touches && event.touches.length > 1 && isDragging) {
+    console.log("還原 by 2 fingers");
+    isDragging = false;
+    targets.forEach(function (otherTarget) {
+      otherTarget.classList.remove("dragging");
+    });
+    currentTarget.style.left = offsetX + "px";
+    currentTarget.style.top = offsetY + "px";
+    return;
+  }
+});
+
 let currentTarget = null;
 let startX = 0;
 let startY = 0;
@@ -39,16 +52,7 @@ targets.forEach(function (target) {
 
     // 如果已經進入跟隨模式，則不處理
     if (isFollowing) return;
-    if (event.touches && event.touches.length > 1 && isDragging) {
-      console.log("還原 by 2 fingers");
-      isDragging = false;
-      targets.forEach(function (otherTarget) {
-        otherTarget.classList.remove("dragging");
-      });
-      currentTarget.style.left = offsetX + "px";
-      currentTarget.style.top = offsetY + "px";
-      return;
-    }
+
     // 記錄目前選取的元素
     currentTarget = target;
 
@@ -66,8 +70,8 @@ targets.forEach(function (target) {
   // 拖移中
   window.addEventListener("pointermove", function (event) {
     if (!isDragging && !isFollowing) return;
-
-    /* if (event.touches && event.touches.length > 1 && isDragging) {
+    if (event.touches) console.log(event.touches.length);
+    /*     if (event.touches && event.touches.length > 1 && isDragging) {
       console.log("還原 by 2 fingers");
       isDragging = false;
       targets.forEach(function (otherTarget) {
@@ -76,8 +80,8 @@ targets.forEach(function (target) {
       currentTarget.style.left = offsetX + "px";
       currentTarget.style.top = offsetY + "px";
       return;
-    }
- */
+    } */
+
     // 計算新的位置
     let newX = offsetX + event.clientX - startX;
     let newY = offsetY + event.clientY - startY;
