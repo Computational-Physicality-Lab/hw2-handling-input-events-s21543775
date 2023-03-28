@@ -23,6 +23,7 @@ workspaceDiv.addEventListener("click", function () {
 });
 
 workspaceDiv.addEventListener("pointerdown", function (event) {
+  console.log(event.touches?.length);
   if (event.touches && event.touches.length > 1 && isDragging) {
     console.log("還原 by 2 fingers");
     isDragging = false;
