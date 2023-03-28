@@ -1,0 +1,339 @@
+/* Your Code Here */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex; /* 使用 flexbox 來排列子元素 */
+  flex-direction: column; /* 設定主軸為垂直方向 */
+}
+.top-bar {
+  width: auto;
+  height: 10px;
+  background-color: #c51230;
+}
+.content {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 13%;
+  box-sizing: border-box;
+}
+
+.content img {
+  height: 80px;
+  cursor: pointer;
+}
+
+.content h1 {
+  font-size: 48px;
+}
+
+.cart-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #c51230;
+  border-radius: 15px;
+}
+
+.cart-button img {
+  height: 60px;
+  padding-left: 5px;
+}
+
+.cart-container p {
+  text-align: center;
+  font-size: 40px;
+  color: #fff;
+  padding: 15px 20px;
+  margin: 0;
+}
+
+.tab-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  padding: 0px 5%;
+  list-style: none; /* 去除ul預設的點 */
+  margin: 0; /* 清除ul預設的margin */
+}
+
+.tab-container li {
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.tab {
+  text-decoration: none;
+  text-align: center;
+  padding: 20px 10px;
+  color: #c51230;
+  display: block; /* 讓a元素佔滿整個li元素 */
+  transition: 0.5s;
+}
+
+.tab:hover {
+  text-decoration: underline; /* 滑鼠懸停時加入底線 */
+  text-decoration-thickness: 5px;
+  color: #c51230; /* 設定紅色文字 */
+  cursor: pointer;
+}
+
+.home-image {
+  text-align: center;
+}
+
+.home-image img {
+  width: 100%;
+  height: auto;
+}
+
+.info-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 30px 15%;
+  justify-content: space-between;
+  gap: 5%;
+  box-sizing: border-box;
+}
+
+.info-box {
+  width: 10%;
+  flex: 1;
+  border: 5px solid #c51230;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.info-box h2 {
+  color: #c51230;
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+
+.info-box p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+footer {
+  background-color: #c51230;
+  color: #fff;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  display: flex;
+  flex-grow: 1;
+  flex-basis: 0;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+nav ul li:hover {
+  flex-grow: 1;
+  flex-basis: 0;
+  color: #fff;
+  cursor: pointer;
+}
+
+nav ul li a {
+  display: block;
+  padding: 20px;
+  height: 100%;
+  color: #d0d0d0;
+  text-decoration: none;
+  text-align: center;
+  transition: 0.5s;
+}
+
+nav ul li a:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+footer p {
+  margin: 0;
+  padding-right: 10%;
+}
+
+.not-implemented-container {
+  display: flex; /* 設定使用 flexbox 排版 */
+  flex-direction: column; /* 垂直排列元素 */
+  align-items: center; /* 水平置中 */
+  margin: 0; /* 取消預設 margin */
+}
+
+.not-implemented-container img {
+  width: 30%;
+}
+
+.not-implemented-container p {
+  text-align: center;
+  font-size: 25px;
+  color: #d0d0d0;
+}
+#products-title {
+  margin: 30px 13%;
+  text-align: left;
+  font-size: 48px;
+}
+#products-container {
+  display: grid;
+  position: static;
+  grid-template-columns: repeat(3, 25%);
+  grid-gap: 20px 3%;
+  justify-content: center;
+  margin: 0 5% 80px 5%;
+}
+.block {
+  text-align: center;
+  border: 3px solid #c51230;
+  border-radius: 15px;
+}
+
+.block img {
+  width: 100%;
+  padding: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.block h2 {
+  text-align: start;
+  padding: 5px 5%;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.block p {
+  text-align: start;
+  padding: 5px 5%;
+  font-size: 20px;
+  font-weight: bold;
+  color: gray;
+}
+
+.block button {
+  color: #d0d0d0;
+  width: 120px;
+  height: 45px;
+  margin: 5px 20px 10px 20px;
+  padding: 0 5px;
+  background-color: #c51230;
+  font-size: 16px;
+  border: 3px solid #c51230;
+  border-radius: 15px;
+}
+
+.block button:hover {
+  transition: 0.5s;
+  color: #fff;
+  cursor: pointer;
+}
+
+.details-container {
+  display: grid;
+  grid-column: 1fr 2fr;
+  grid-template-rows: 100px 80px auto 50px 50px 200px;
+  grid-template-areas:
+    "title ."
+    "img price"
+    "img descip"
+    "img sidebtn"
+    "img colorbtn"
+    "img .";
+  justify-content: left;
+  grid-gap: 10px 5%;
+  padding: 10px 10%;
+}
+
+.details-container h1 {
+  grid-area: title;
+  color: #c51230;
+  font-size: 40px;
+}
+
+.details-container img {
+  grid-area: img;
+}
+
+.details-container h2 {
+  grid-area: price;
+  color: #c51230;
+  font-size: 30px;
+}
+
+.details-container p {
+  grid-area: descip;
+  color: #c51230;
+}
+
+.details-container .side-button {
+  grid-area: sidebtn;
+}
+
+.details-container .color-button {
+  grid-area: colorbtn;
+}
+
+.side-button {
+  display: flex;
+  align-items: center;
+}
+
+.side-button p {
+  color: gray;
+}
+
+.color-button {
+  display: flex;
+  align-items: center;
+}
+
+.-button p {
+  color: gray;
+}
+
+.details-container button {
+  width: 80px;
+  height: 40px;
+  margin: 10px;
+  padding: 0 5px;
+  background-color: #c51230;
+  font-size: 16px;
+  border: 1px solid #c51230;
+  border-radius: 15px;
+}
+
+.details-container button:hover {
+  transition: 0.5s;
+  color: white;
+  cursor: pointer;
+}

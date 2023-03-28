@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>SSUI HW1 - Products</title>
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Catamaran:wght@200;500&family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Your CSS Code -->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <!-- JSON Shirt Object -->
+    <script src="shirts.js"></script>
+
+    <!-- Your JS Code -->
+    <script src="main.js"></script>
+  </head>
+  <body onload="initProducts()">
+    <!-- Your Code Here -->
+    <header>
+      <div class="top-bar"></div>
+      <div class="content">
+        <img
+          src="./site_images/logo.png"
+          alt="logo"
+          onclick="window.location.href='index.html'"
+        />
+        <h1>Scotty Shirts U Illustrate (SSUI)</h1>
+        <div class="cart-container">
+          <a href="not_implemented.html" class="cart-button">
+            <img src="./site_images/shopping-cart.svg" />
+          </a>
+          <p>0</p>
+        </div>
+      </div>
+      <nav>
+        <ul class="tab-container">
+          <li><a href="products.html" class="tab">T-SHIRTS</a></li>
+          <li>
+            <a href="not_implemented.html" class="tab">CREATE FROM PICTURE</a>
+          </li>
+          <li>
+            <a href="./hw2/index.html" class="tab">CREATE YOUR OWN</a>
+          </li>
+          <li><a href="not_implemented.html" class="tab">ABOUT US</a></li>
+          <li><a href="not_implemented.html" class="tab">LOG IN</a></li>
+        </ul>
+      </nav>
+    </header>
+    <h1 id="products-title">Our T-shirts</h1>
+    <div id="products-container"></div>
+
+    <footer>
+      <nav>
+        <ul>
+          <li><a href="not_implemented.html">Contact Us</a></li>
+          <li><a href="not_implemented.html">Site Map</a></li>
+          <li><a href="not_implemented.html">Privacy Policy</a></li>
+          <li><a href="not_implemented.html">Careers</a></li>
+          <li><a href="not_implemented.html">Reviews</a></li>
+        </ul>
+        <p>Design by sola, Copyright © 2023</p>
+      </nav>
+    </footer>
+  </body>
+</html>
