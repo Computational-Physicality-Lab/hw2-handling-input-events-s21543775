@@ -57,11 +57,8 @@ targets.forEach(function (target) {
   window.addEventListener("pointermove", function (event) {
     if (!isDragging && !isFollowing) return;
 
-    if (
-      isDragging &&
-      event.pointerType === "touch" &&
-      event.touches.length > 1
-    ) {
+    if (event.touches && event.touches.length > 1 && isDragging) {
+      console.log("還原 by 2 fingers");
       isDragging = false;
       targets.forEach(function (otherTarget) {
         otherTarget.classList.remove("dragging");
