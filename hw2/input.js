@@ -112,6 +112,7 @@ targets.forEach(function (target) {
     // 雙擊事件，進入跟隨模式
     isFollowing = true;
     target.classList.add("following");
+    console.log("dbclick");
     startX = event.clientX;
     startY = event.clientY;
     offsetX = target.offsetLeft;
@@ -122,6 +123,7 @@ targets.forEach(function (target) {
     // 雙擊事件，進入跟隨模式
     isFollowing = false;
     target.classList.remove("following");
+    console.log("click");
   });
 
   // 按下 ESC 鍵
