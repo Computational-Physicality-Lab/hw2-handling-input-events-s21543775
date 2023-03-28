@@ -224,10 +224,12 @@ targets.forEach(function (target) {
     offsetY = target.offsetTop;
   });
 
-  target.addEventListener("click", function (event) {
+  window.addEventListener("click", function (event) {
     // 單擊事件，解除跟隨模式
+    targets.forEach(function (target) {
+      target.classList.remove("following");
+    });
     isFollowing = false;
-    target.classList.remove("following");
   });
 
   // 按下 ESC 鍵
