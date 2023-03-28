@@ -57,6 +57,20 @@ targets.forEach(function (target) {
   window.addEventListener("pointermove", function (event) {
     if (!isDragging && !isFollowing) return;
 
+    if (
+      isDragging &&
+      event.pointerType === "touch" &&
+      event.touches.length > 1
+    ) {
+      isDragging = false;
+      targets.forEach(function (otherTarget) {
+        otherTarget.classList.remove("dragging");
+      });
+      currentTarget.style.left = offsetX + "px";
+      currentTarget.style.top = offsetY + "px";
+      return;
+    }
+
     // 計算新的位置
     let newX = offsetX + event.clientX - startX;
     let newY = offsetY + event.clientY - startY;
