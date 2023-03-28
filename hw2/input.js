@@ -108,11 +108,14 @@ targets.forEach(function (target) {
     }
   });
 
-  target.addEventListener("dblclick", function (event) {
+  window.addEventListener("dblclick", function (event) {
     console.log("dbclick");
     // 雙擊事件，進入跟隨模式
-    isFollowing = true;
-    target.classList.add("following");
+    console.log(event.target);
+    if (event.target.classList.contains("target")) {
+      isFollowing = true;
+      event.target.classList.add("following");
+    }
     startX = event.clientX;
     startY = event.clientY;
     offsetX = target.offsetLeft;
