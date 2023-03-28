@@ -29,7 +29,7 @@ let offsetX = 0;
 let offsetY = 0;
 let isDragging = false;
 let isFollowing = false;
-
+let touchTimer = null;
 targets.forEach(function (target) {
   // 開始拖移
   target.addEventListener("pointerdown", function (event) {
@@ -108,14 +108,12 @@ targets.forEach(function (target) {
     }
   });
 
-  window.addEventListener("dblclick", function (event) {
+  target.addEventListener("dblclick", function (event) {
     console.log("dbclick");
     // 雙擊事件，進入跟隨模式
-    console.log(event.target);
-    if (event.target.classList.contains("target")) {
-      isFollowing = true;
-      event.target.classList.add("following");
-    }
+
+    isFollowing = true;
+    target.classList.add("following");
     startX = event.clientX;
     startY = event.clientY;
     offsetX = target.offsetLeft;
@@ -124,11 +122,32 @@ targets.forEach(function (target) {
 
   target.addEventListener("click", function (event) {
     // 單擊事件，解除跟隨模式
-    //event.stopPropagation();
+    event.stopPropagation();
     console.log("click");
     if (target.classList.contains("following")) {
       target.classList.remove("following");
       isFollowing = false;
+    }
+
+    if (touchTimer == null) {
+      // 設置計時器
+      touchTimer = setTimeout(function () {
+        touchTimer = null;
+      }, 300);
+    } else {
+      // 清除計時器
+      clearTimeout(touchTimer);
+      touchTimer = null;
+      // 觸發連續觸控點擊事件
+      console.log("dbclick by timer");
+      // 雙擊事件，進入跟隨模式
+
+      isFollowing = true;
+      target.classList.add("following");
+      startX = event.clientX;
+      startY = event.clientY;
+      offsetX = target.offsetLeft;
+      offsetY = target.offsetTop;
     }
   });
 
