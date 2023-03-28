@@ -224,6 +224,12 @@ targets.forEach(function (target) {
     offsetY = target.offsetTop;
   });
 
+  target.addEventListener("click", function (event) {
+    // 單擊事件，解除跟隨模式
+    isFollowing = false;
+    target.classList.remove("following");
+  });
+
   // 按下 ESC 鍵
   window.addEventListener("keydown", function (event) {
     if (
