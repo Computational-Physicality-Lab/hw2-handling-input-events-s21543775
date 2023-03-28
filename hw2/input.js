@@ -11,7 +11,8 @@ const workspaceDiv = document.getElementById("workspace");
 
 workspaceDiv.addEventListener("click", function () {
   targets.forEach(function (target) {
-    if (target.classList.contains("selected")) {
+    if (!event.target.classList.contains("target")) {
+      // 點擊到目標元素
       target.classList.remove("selected");
       target.style.backgroundColor = "red";
     }
@@ -120,7 +121,7 @@ targets.forEach(function (target) {
 
   target.addEventListener("click", function (event) {
     // 單擊事件，解除跟隨模式
-    event.stopPropagation();
+    //event.stopPropagation();
     console.log("click");
     if (target.classList.contains("following")) {
       target.classList.remove("following");
