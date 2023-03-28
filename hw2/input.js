@@ -9,7 +9,7 @@ of the interaction.
 const targets = document.querySelectorAll(".target");
 const workspaceDiv = document.getElementById("workspace");
 
-workspaceDiv.addEventListener("pointerup", function () {
+workspaceDiv.addEventListener("click", function () {
   targets.forEach(function (target) {
     if (target.classList.contains("selected")) {
       target.classList.remove("selected");
@@ -32,6 +32,7 @@ let isFollowing = false;
 targets.forEach(function (target) {
   // 開始拖移
   target.addEventListener("pointerdown", function (event) {
+    console.log("pointer down");
     if (event.button !== 0) return; // 如果不是左鍵，則不處理
     event.preventDefault(); // 防止文字被選取
 
@@ -79,6 +80,7 @@ targets.forEach(function (target) {
 
   // 結束拖移
   target.addEventListener("pointerup", function (event) {
+    console.log("pointer up");
     event.stopPropagation();
     // 取消拖移標誌
     isDragging = false;
@@ -88,10 +90,7 @@ targets.forEach(function (target) {
       otherTarget.classList.remove("dragging");
       otherTarget.classList.remove("following");
     });
-    if (
-      target.style.left == offsetX + "px" &&
-      target.style.top == offsetY + "px"
-    ) {
+    if (event.clientX === startX && event.clientY === startY) {
       targets.forEach(function (otherTarget) {
         if (
           otherTarget !== target &&
@@ -109,10 +108,10 @@ targets.forEach(function (target) {
   });
 
   target.addEventListener("dblclick", function (event) {
+    console.log("dbclick");
     // 雙擊事件，進入跟隨模式
     isFollowing = true;
     target.classList.add("following");
-    console.log("dbclick");
     startX = event.clientX;
     startY = event.clientY;
     offsetX = target.offsetLeft;
@@ -121,9 +120,12 @@ targets.forEach(function (target) {
 
   target.addEventListener("click", function (event) {
     // 單擊事件，解除跟隨模式
-    isFollowing = false;
-    target.classList.remove("following");
+    event.stopPropagation();
     console.log("click");
+    if (target.classList.contains("following")) {
+      target.classList.remove("following");
+      isFollowing = false;
+    }
   });
 
   // 按下 ESC 鍵
