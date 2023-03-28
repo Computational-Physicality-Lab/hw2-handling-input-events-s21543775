@@ -120,7 +120,7 @@ targets.forEach(function (target) {
   });
 
   target.addEventListener("click", function (event) {
-    // 雙擊事件，進入跟隨模式
+    // 單擊事件，解除跟隨模式
     isFollowing = false;
     target.classList.remove("following");
     console.log("click");
