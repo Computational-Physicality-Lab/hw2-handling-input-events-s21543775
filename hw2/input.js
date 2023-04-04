@@ -117,7 +117,7 @@ targets.forEach(function (target) {
   target.addEventListener("pointerdown", function (event) {
     console.log("pointer down");
     if (event.button !== 0) return; // 如果不是左鍵，則不處理
-    event.preventDefault(); // 防止文字被選取
+    //event.preventDefault(); // 防止文字被選取
 
     // 如果已經進入跟隨模式，則不處理
     if (isFollowing) return;
