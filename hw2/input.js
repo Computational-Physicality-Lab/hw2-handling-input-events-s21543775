@@ -34,11 +34,11 @@ workspaceDiv.addEventListener("touchstart", function (event) {
     });
     currentTarget.style.left = offsetX + "px";
     currentTarget.style.top = offsetY + "px";
-    currentTarget.offsetWidth = pinchStartWidth;
-    currentTarget.offsetHeight = pinchStartHeight;
+    currentTarget.style.width = pinchStartWidth;
+    currentTarget.style.height = pinchStartHeight;
     return;
   }
-  if (event.touches.length === 2) {
+  if (event.touches.length === 2 && !isDragging && !isFollowing) {
     isPinching = true;
 
     // 記錄開始縮放時的兩指距離、div 大小和中心座標
