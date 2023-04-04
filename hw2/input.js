@@ -22,7 +22,7 @@ workspaceDiv.addEventListener("click", function () {
   });
 });
 
-workspaceDiv.addEventListener("touchstart", function (event) {
+window.addEventListener("touchstart", function (event) {
   console.log(event.touches.length);
   //縮放
   let selectedElement = document.querySelector(".selected");
