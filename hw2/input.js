@@ -35,8 +35,8 @@ workspaceDiv.addEventListener("touchstart", function (event) {
     currentTarget.style.left = offsetX + "px";
     currentTarget.style.top = offsetY + "px";
     console.log(pinchStartWidth);
-    currentTarget.style.width = pinchStartWidth;
-    currentTarget.style.height = pinchStartHeight;
+    currentTarget.style.width = pinchStartWidth + "px";
+    currentTarget.style.height = pinchStartHeight + "px";
     console.log(currentTarget.style.width);
     return;
   }
