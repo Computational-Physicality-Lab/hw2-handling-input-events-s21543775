@@ -64,6 +64,7 @@ targets.forEach(function (target) {
     if (event.button !== 0) return; // 如果不是左鍵，則不處理
     event.preventDefault(); // 防止文字被選取
     //縮放
+    console.log(event.touches);
     if (event.pointerType === "touch" && event.touches.length === 2) {
       isPinching = true;
 
@@ -101,6 +102,7 @@ targets.forEach(function (target) {
     if (!isDragging && !isFollowing && !isPinching) return;
     //縮放
     if (!isDragging && !isFollowing && isPinching) {
+      console.log(event.touches);
       if (event.pointerType === "touch" && event.touches.length === 2) {
         // 計算兩指距離和比例
         const touch1 = event.touches[0];
