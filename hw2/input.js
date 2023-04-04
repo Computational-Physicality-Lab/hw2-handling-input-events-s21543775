@@ -28,23 +28,21 @@ workspaceDiv.addEventListener("touchstart", function (event) {
   let selectedElement = document.querySelector(".selected");
 
   if (event.touches.length === 3 && isPinching) {
-    if (selectedElement) currentTarget = selectedElement;
+    if (selectedElement) pichTarget = selectedElement;
     else return;
     console.log("還原 by 3 fingers");
     isPinching = false;
     targets.forEach(function (otherTarget) {
       //otherTarget.classList.remove("d");
     });
-    currentTarget.style.left = offsetX + "px";
-    currentTarget.style.top = offsetY + "px";
-    console.log(pinchStartWidth);
-    currentTarget.style.width = pinchStartWidth + "px";
-    currentTarget.style.height = pinchStartHeight + "px";
-    console.log(currentTarget.style.width);
+    pinchTarget.style.left = offsetX + "px";
+    pinchTarget.style.top = offsetY + "px";
+    pinchTarget.style.width = pinchStartWidth + "px";
+    pinchTarget.style.height = pinchStartHeight + "px";
     return;
   }
   if (event.touches.length === 2 && !isDragging && !isFollowing) {
-    if (selectedElement) currentTarget = selectedElement;
+    if (selectedElement) pinchTarget = selectedElement;
     else return;
     isPinching = true;
     // 記錄開始縮放時的兩指距離、div 大小和中心座標
@@ -54,11 +52,11 @@ workspaceDiv.addEventListener("touchstart", function (event) {
       { x: touch1.clientX, y: touch1.clientY },
       { x: touch2.clientX, y: touch2.clientY }
     );
-    pinchStartWidth = currentTarget.offsetWidth;
-    pinchStartHeight = currentTarget.offsetHeight;
+    pinchStartWidth = pinchTarget.offsetWidth;
+    pinchStartHeight = pinchTarget.offsetHeight;
     console.log(pinchStartWidth);
-    pinchStartX = currentTarget.offsetLeft + currentTarget.offsetWidth / 2;
-    pinchStartY = currentTarget.offsetTop + currentTarget.offsetHeight / 2;
+    pinchStartX = pinchTarget.offsetLeft + pinchTarget.offsetWidth / 2;
+    pinchStartY = pinchTarget.offsetTop + pinchTarget.offsetHeight / 2;
   }
 });
 workspaceDiv.addEventListener("touchmove", function (event) {
@@ -97,6 +95,7 @@ workspaceDiv.addEventListener("touchmove", function (event) {
 });
 
 let currentTarget = null;
+let pinchTarget = null;
 let startX = 0;
 let startY = 0;
 let offsetX = 0;
