@@ -76,18 +76,15 @@ workspaceDiv.addEventListener("touchmove", function (event) {
       // 計算新的 div 寬度、高度和中心座標
       const newWidth = pinchStartWidth * scale;
       const newHeight = pinchStartHeight * scale;
-      const newCenterX =
-        pinchStartX - (newWidth - currentTarget.offsetWidth) / 2;
+      const newCenterX = pinchStartX - (newWidth - pinchTarget.offsetWidth) / 2;
       const newCenterY =
-        pinchStartY - (newHeight - currentTarget.offsetHeight) / 2;
+        pinchStartY - (newHeight - pinchTarget.offsetHeight) / 2;
 
       // 更新元素大小和位置
-      currentTarget.style.width = newWidth + "px";
-      currentTarget.style.height = newHeight + "px";
-      currentTarget.style.left =
-        newCenterX - currentTarget.offsetWidth / 2 + "px";
-      currentTarget.style.top =
-        newCenterY - currentTarget.offsetHeight / 2 + "px";
+      pinchTarget.style.width = newWidth + "px";
+      pinchTarget.style.height = newHeight + "px";
+      pinchTarget.style.left = newCenterX - pinchTarget.offsetWidth / 2 + "px";
+      pinchTarget.style.top = newCenterY - pinchTarget.offsetHeight / 2 + "px";
     } else {
       isPinching = false;
     }
