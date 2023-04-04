@@ -22,7 +22,7 @@ workspaceDiv.addEventListener("click", function () {
   });
 });
 
-workspaceDiv.addEventListener("touchstart", function (event) {
+/* workspaceDiv.addEventListener("touchstart", function (event) {
   console.log(event.touches.length);
   if (event.touches && event.touches.length > 1 && isDragging) {
     console.log("還原 by 2 fingers");
@@ -34,7 +34,7 @@ workspaceDiv.addEventListener("touchstart", function (event) {
     currentTarget.style.top = offsetY + "px";
     return;
   }
-});
+}); */
 
 let currentTarget = null;
 let startX = 0;
@@ -50,6 +50,21 @@ targets.forEach(function (target) {
     console.log("pointer down");
     if (event.button !== 0) return; // 如果不是左鍵，則不處理
     event.preventDefault(); // 防止文字被選取
+    //在拖移時如果按下第二隻手指則取消
+    if (
+      event.getPointerList() &&
+      event.getPointerList().length > 1 &&
+      isDragging
+    ) {
+      console.log("還原 by 2 fingers");
+      isDragging = false;
+      targets.forEach(function (otherTarget) {
+        otherTarget.classList.remove("dragging");
+      });
+      currentTarget.style.left = offsetX + "px";
+      currentTarget.style.top = offsetY + "px";
+      return;
+    }
 
     // 如果已經進入跟隨模式，則不處理
     if (isFollowing) return;
