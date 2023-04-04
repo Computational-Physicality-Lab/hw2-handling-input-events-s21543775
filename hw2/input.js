@@ -48,8 +48,7 @@ workspaceDiv.addEventListener("touchstart", function (event) {
     pinchStartWidth = pinchTarget.offsetWidth;
     pinchStartHeight = pinchTarget.offsetHeight;
     pinchStartLeft = pinchTarget.offsetLeft;
-    pinchStartRight = pinchTarget.offsetRight;
-    console.log(pinchStartWidth);
+    pinchStartTop = pinchTarget.offsetTop;
     pinchStartX = pinchTarget.offsetLeft + pinchTarget.offsetWidth / 2;
     pinchStartY = pinchTarget.offsetTop + pinchTarget.offsetHeight / 2;
   }
@@ -59,7 +58,7 @@ workspaceDiv.addEventListener("touchstart", function (event) {
     console.log("還原 by 3 fingers");
     isPinching = false;
     pinchTarget.style.left = pinchStartLeft + "px";
-    pinchTarget.style.top = pinchStartRight + "px";
+    pinchTarget.style.top = pinchStartTop + "px";
     pinchTarget.style.width = pinchStartWidth + "px";
     pinchTarget.style.height = pinchStartHeight + "px";
     return;
@@ -112,7 +111,7 @@ let pinchStartDistance = 0; // 開始縮放時兩指距離
 let pinchStartWidth = 0; // 開始縮放時 div 寬度
 let pinchStartHeight = 0; // 開始縮放時 div 高度
 let pinchStartLeft = 0; // 開始縮放時 div 寬度
-let pinchStartRight = 0; // 開始縮放時 div 高度
+let pinchStartTop = 0; // 開始縮放時 div 高度
 let pinchStartX = 0; // 開始縮放時 div 中心 X 座標
 let pinchStartY = 0; // 開始縮放時 div 中心 Y 座標
 let startTime = null;
