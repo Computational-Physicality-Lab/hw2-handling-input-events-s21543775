@@ -154,18 +154,18 @@ targets.forEach(function (target) {
       offsetY = target.offsetTop;
     }, 500);
 
-    /* // 記錄目前選取的元素
+    // 記錄目前選取的元素
     currentTarget = target;
 
-    // 設置拖移標誌
+    /* // 設置拖移標誌
     isDragging = true;
     // 添加拖移樣式
-    target.classList.add("dragging");
+    target.classList.add("dragging"); */
 
     startX = event.clientX;
     startY = event.clientY;
     offsetX = target.offsetLeft;
-    offsetY = target.offsetTop; */
+    offsetY = target.offsetTop;
   });
 
   // 拖移中
