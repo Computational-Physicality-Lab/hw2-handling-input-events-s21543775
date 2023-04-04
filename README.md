@@ -21,9 +21,9 @@ This is the starter code of [2023-Programming User Interface Homework](https://h
 按下esc還原
 * touchstart
 因為pointer沒辦法判斷同時多少手指，因此另外用touch event處理縮放
-1隻手指時: 設定計時器
-2隻手指時: 檢查計時器是否小於100ms (同時點擊)，若小於，則進入縮放狀態
-3隻手指時: 結束縮放並還原
+>1隻手指時: 設定計時器
+>2隻手指時: 檢查計時器是否小於100ms (同時點擊)，若小於，則進入縮放狀態
+>3隻手指時: 結束縮放並還原
 * touchmove
 處理縮放變化
 ## 加分作業
