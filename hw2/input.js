@@ -44,12 +44,40 @@ let offsetY = 0;
 let isDragging = false;
 let isFollowing = false;
 let touchTimer = null;
+//縮放
+let isPinching = false; // 是否正在縮放
+let pinchStartDistance = 0; // 開始縮放時兩指距離
+let pinchStartSize = 0; // 開始縮放時 div 大小
+let pinchStartX = 0; // 開始縮放時 div 中心 X 座標
+let pinchStartY = 0; // 開始縮放時 div 中心 Y 座標
+// 判斷兩點之間距離
+function getDistance(point1, point2) {
+  const xDistance = point2.x - point1.x;
+  const yDistance = point2.y - point1.y;
+  return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+}
+
 targets.forEach(function (target) {
   // 開始拖移
   target.addEventListener("pointerdown", function (event) {
     console.log("pointer down");
     if (event.button !== 0) return; // 如果不是左鍵，則不處理
     event.preventDefault(); // 防止文字被選取
+    //縮放
+    if (event.pointerType === "touch" && event.touches.length === 2) {
+      isPinching = true;
+
+      // 記錄開始縮放時的兩指距離、div 大小和中心座標
+      const touch1 = event.touches[0];
+      const touch2 = event.touches[1];
+      pinchStartDistance = getDistance(
+        { x: touch1.clientX, y: touch1.clientY },
+        { x: touch2.clientX, y: touch2.clientY }
+      );
+      pinchStartSize = currentTarget.offsetWidth;
+      pinchStartX = currentTarget.offsetLeft + currentTarget.offsetWidth / 2;
+      pinchStartY = currentTarget.offsetTop + currentTarget.offsetHeight / 2;
+    }
 
     // 如果已經進入跟隨模式，則不處理
     if (isFollowing) return;
@@ -70,7 +98,38 @@ targets.forEach(function (target) {
 
   // 拖移中
   window.addEventListener("pointermove", function (event) {
-    if (!isDragging && !isFollowing) return;
+    if (!isDragging && !isFollowing && !isPinching) return;
+    //縮放
+    if (!isDragging && !isFollowing && isPinching) {
+      if (event.pointerType === "touch" && event.touches.length === 2) {
+        // 計算兩指距離和比例
+        const touch1 = event.touches[0];
+        const touch2 = event.touches[1];
+        const distance = getDistance(
+          { x: touch1.clientX, y: touch1.clientY },
+          { x: touch2.clientX, y: touch2.clientY }
+        );
+        const scale = distance / pinchStartDistance;
+
+        // 計算新的 div 寬度、高度和中心座標
+        const newWidth = pinchStartSize * scale;
+        const newHeight = pinchStartSize * scale;
+        const newCenterX =
+          pinchStartX - (newWidth - currentTarget.offsetWidth) / 2;
+        const newCenterY =
+          pinchStartY - (newHeight - currentTarget.offsetHeight) / 2;
+
+        // 更新元素大小和位置
+        currentTarget.style.width = newWidth + "px";
+        currentTarget.style.height = newHeight + "px";
+        currentTarget.style.left =
+          newCenterX - currentTarget.offsetWidth / 2 + "px";
+        currentTarget.style.top =
+          newCenterY - currentTarget.offsetHeight / 2 + "px";
+      } else {
+        isPinching = false;
+      }
+    }
 
     //在拖移時如果按下第二隻手指則取消
     if (!event.isPrimary && (isDragging || isFollowing)) {
@@ -114,6 +173,7 @@ targets.forEach(function (target) {
     // 取消拖移標誌
     isDragging = false;
     isFollowing = false;
+    isPinching = false;
     // 移除拖移樣式
     targets.forEach(function (otherTarget) {
       otherTarget.classList.remove("dragging");
