@@ -8,18 +8,25 @@ This is the starter code of [2023-Programming User Interface Homework](https://h
 ## 設計說明
 主要透過pointer event同時handle滑鼠跟觸控
 * pointerdown
+
 當長按target 0.5秒後設定isDragging，允許拖移
 * pointerup
+
 清除所有狀態(拖移、跟隨、縮放)，並重新設定target的選取狀態
 * pointermove
+
 處理target拖移跟跟隨的位置變化，並在第二隻手指觸控時還原
 * click
+
 透過計時器判斷，單擊解除跟隨狀態，連擊兩下進入跟隨狀態
 * dblclick
+
 進入跟隨狀態 (滑鼠專用，已經被click的部分handle住，可移除)
 * keydown
+
 按下esc還原
 * touchstart
+
 因為pointer沒辦法判斷同時多少手指，因此另外用touch event處理縮放
 
 >1隻手指時: 設定計時器
@@ -28,6 +35,7 @@ This is the starter code of [2023-Programming User Interface Homework](https://h
 
 >3隻手指時: 結束縮放並還原
 * touchmove
+
 處理縮放變化
 ## 加分作業
 * 垂直縮放
