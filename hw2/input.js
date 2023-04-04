@@ -34,8 +34,10 @@ workspaceDiv.addEventListener("touchstart", function (event) {
     });
     currentTarget.style.left = offsetX + "px";
     currentTarget.style.top = offsetY + "px";
+    console.log(pinchStartWidth);
     currentTarget.style.width = pinchStartWidth;
     currentTarget.style.height = pinchStartHeight;
+    console.log(currentTarget.style.width);
     return;
   }
   if (event.touches.length === 2 && !isDragging && !isFollowing) {
@@ -50,6 +52,7 @@ workspaceDiv.addEventListener("touchstart", function (event) {
     );
     pinchStartWidth = currentTarget.offsetWidth;
     pinchStartHeight = currentTarget.offsetHeight;
+    console.log(pinchStartWidth);
     pinchStartX = currentTarget.offsetLeft + currentTarget.offsetWidth / 2;
     pinchStartY = currentTarget.offsetTop + currentTarget.offsetHeight / 2;
   }
@@ -58,7 +61,6 @@ workspaceDiv.addEventListener("touchmove", function (event) {
   if (!isDragging && !isFollowing && !isPinching) return;
   //縮放
   if (!isDragging && !isFollowing && isPinching) {
-    console.log(event.touches);
     if (event.touches.length === 2) {
       // 計算兩指距離和比例
       const touch1 = event.touches[0];
