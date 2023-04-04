@@ -26,6 +26,18 @@ workspaceDiv.addEventListener("touchstart", function (event) {
   console.log(event.touches.length);
   //縮放
   console.log(event.touches);
+  if (event.touches.length === 3 && isPinching) {
+    console.log("還原 by 3 fingers");
+    isPinching = false;
+    targets.forEach(function (otherTarget) {
+      //otherTarget.classList.remove("d");
+    });
+    currentTarget.style.left = offsetX + "px";
+    currentTarget.style.top = offsetY + "px";
+    currentTarget.offsetWidth = pinchStartWidth;
+    currentTarget.offsetHeight = pinchStartHeight;
+    return;
+  }
   if (event.touches.length === 2) {
     isPinching = true;
 
@@ -36,7 +48,8 @@ workspaceDiv.addEventListener("touchstart", function (event) {
       { x: touch1.clientX, y: touch1.clientY },
       { x: touch2.clientX, y: touch2.clientY }
     );
-    pinchStartSize = currentTarget.offsetWidth;
+    pinchStartWidth = currentTarget.offsetWidth;
+    pinchStartHeight = currentTarget.offsetHeight;
     pinchStartX = currentTarget.offsetLeft + currentTarget.offsetWidth / 2;
     pinchStartY = currentTarget.offsetTop + currentTarget.offsetHeight / 2;
   }
@@ -57,8 +70,8 @@ workspaceDiv.addEventListener("touchmove", function (event) {
       const scale = distance / pinchStartDistance;
 
       // 計算新的 div 寬度、高度和中心座標
-      const newWidth = pinchStartSize * scale;
-      const newHeight = pinchStartSize * scale;
+      const newWidth = pinchStartWidth * scale;
+      const newHeight = pinchStartHeight * scale;
       const newCenterX =
         pinchStartX - (newWidth - currentTarget.offsetWidth) / 2;
       const newCenterY =
@@ -88,7 +101,8 @@ let touchTimer = null;
 //縮放
 let isPinching = false; // 是否正在縮放
 let pinchStartDistance = 0; // 開始縮放時兩指距離
-let pinchStartSize = 0; // 開始縮放時 div 大小
+let pinchStartWidth = 0; // 開始縮放時 div 寬度
+let pinchStartHeight = 0; // 開始縮放時 div 高度
 let pinchStartX = 0; // 開始縮放時 div 中心 X 座標
 let pinchStartY = 0; // 開始縮放時 div 中心 Y 座標
 // 判斷兩點之間距離
@@ -130,6 +144,7 @@ targets.forEach(function (target) {
     if (!event.isPrimary && (isDragging || isFollowing)) {
       console.log("還原 by 2 fingers");
       isDragging = false;
+      isFollowing = false;
       targets.forEach(function (otherTarget) {
         otherTarget.classList.remove("dragging");
         otherTarget.classList.remove("following");
