@@ -25,8 +25,11 @@ workspaceDiv.addEventListener("click", function () {
 workspaceDiv.addEventListener("touchstart", function (event) {
   console.log(event.touches.length);
   //縮放
-  console.log(event.touches);
+  let selectedElement = document.querySelector(".selected");
+
   if (event.touches.length === 3 && isPinching) {
+    if (selectedElement) currentTarget = selectedElement;
+    else return;
     console.log("還原 by 3 fingers");
     isPinching = false;
     targets.forEach(function (otherTarget) {
@@ -41,8 +44,9 @@ workspaceDiv.addEventListener("touchstart", function (event) {
     return;
   }
   if (event.touches.length === 2 && !isDragging && !isFollowing) {
+    if (selectedElement) currentTarget = selectedElement;
+    else return;
     isPinching = true;
-
     // 記錄開始縮放時的兩指距離、div 大小和中心座標
     const touch1 = event.touches[0];
     const touch2 = event.touches[1];
