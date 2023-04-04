@@ -79,8 +79,8 @@ workspaceDiv.addEventListener("touchmove", function (event) {
       const scale = distance / pinchStartDistance;
 
       // 計算新的 div 寬度、高度和中心座標
-      const newWidth = pinchStartWidth * scale;
-      const newHeight = pinchStartHeight * scale;
+      const newWidth = max(pinchStartWidth * scale, 20);
+      const newHeight = max(pinchStartHeight * scale, 20);
       const newCenterX = pinchStartX - (newWidth - pinchTarget.offsetWidth) / 2;
       const newCenterY =
         pinchStartY - (newHeight - pinchTarget.offsetHeight) / 2;
