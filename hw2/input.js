@@ -105,6 +105,7 @@ let offsetY = 0;
 let isDragging = false;
 let isFollowing = false;
 let touchTimer = null;
+let pressTimer = null;
 //縮放
 let isPinching = false; // 是否正在縮放
 let pinchStartDistance = 0; // 開始縮放時兩指距離
