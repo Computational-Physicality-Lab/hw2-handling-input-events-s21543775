@@ -128,12 +128,32 @@ targets.forEach(function (target) {
   target.addEventListener("pointerdown", function (event) {
     console.log("pointer down");
     if (event.button !== 0) return; // 如果不是左鍵，則不處理
-    //event.preventDefault(); // 防止文字被選取
+    event.preventDefault(); // 防止文字被選取
 
     // 如果已經進入跟隨模式，則不處理
     if (isFollowing) return;
 
-    // 記錄目前選取的元素
+    clearTimeout(pressTimer);
+    pressTimer = null;
+
+    // 設置計時器，在 0.5 秒後執行
+    pressTimer = setTimeout(function () {
+      pressTimer = null;
+      // 判斷是否有手指進行縮放
+      if (isPinching) {
+        return;
+      }
+      // 添加 isPressing 樣式
+      currentTarget = target;
+      target.classList.add("dragging");
+      isDragging = true;
+      startX = event.clientX;
+      startY = event.clientY;
+      offsetX = target.offsetLeft;
+      offsetY = target.offsetTop;
+    }, 500);
+
+    /* // 記錄目前選取的元素
     currentTarget = target;
 
     // 設置拖移標誌
@@ -144,7 +164,7 @@ targets.forEach(function (target) {
     startX = event.clientX;
     startY = event.clientY;
     offsetX = target.offsetLeft;
-    offsetY = target.offsetTop;
+    offsetY = target.offsetTop; */
   });
 
   // 拖移中
@@ -195,6 +215,9 @@ targets.forEach(function (target) {
     isDragging = false;
     isFollowing = false;
     isPinching = false;
+    // 清除計時器
+    clearTimeout(pressTimer);
+    pressTimer = null;
     // 移除拖移樣式
     targets.forEach(function (otherTarget) {
       otherTarget.classList.remove("dragging");
