@@ -50,19 +50,6 @@ targets.forEach(function (target) {
     console.log("pointer down");
     if (event.button !== 0) return; // 如果不是左鍵，則不處理
     event.preventDefault(); // 防止文字被選取
-    //在拖移時如果按下第二隻手指則取消
-    console.log(event.isPrimary);
-    console.log(isDragging);
-    if (!event.isPrimary && isDragging) {
-      console.log("還原 by 2 fingers");
-      isDragging = false;
-      targets.forEach(function (otherTarget) {
-        otherTarget.classList.remove("dragging");
-      });
-      currentTarget.style.left = offsetX + "px";
-      currentTarget.style.top = offsetY + "px";
-      return;
-    }
 
     // 如果已經進入跟隨模式，則不處理
     if (isFollowing) return;
@@ -84,8 +71,11 @@ targets.forEach(function (target) {
   // 拖移中
   window.addEventListener("pointermove", function (event) {
     if (!isDragging && !isFollowing) return;
-    if (event.touches) console.log(event.touches.length);
-    /*     if (event.touches && event.touches.length > 1 && isDragging) {
+
+    //在拖移時如果按下第二隻手指則取消
+    console.log(event.isPrimary);
+    console.log(isDragging);
+    if (!event.isPrimary && isDragging) {
       console.log("還原 by 2 fingers");
       isDragging = false;
       targets.forEach(function (otherTarget) {
@@ -94,7 +84,7 @@ targets.forEach(function (target) {
       currentTarget.style.left = offsetX + "px";
       currentTarget.style.top = offsetY + "px";
       return;
-    } */
+    }
 
     // 計算新的位置
     let newX = offsetX + event.clientX - startX;
