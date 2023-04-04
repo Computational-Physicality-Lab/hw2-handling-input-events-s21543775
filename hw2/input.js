@@ -51,11 +51,7 @@ targets.forEach(function (target) {
     if (event.button !== 0) return; // 如果不是左鍵，則不處理
     event.preventDefault(); // 防止文字被選取
     //在拖移時如果按下第二隻手指則取消
-    if (
-      event.getPointerList() &&
-      event.getPointerList().length > 1 &&
-      isDragging
-    ) {
+    if (event.isPrimary && isDragging) {
       console.log("還原 by 2 fingers");
       isDragging = false;
       targets.forEach(function (otherTarget) {
