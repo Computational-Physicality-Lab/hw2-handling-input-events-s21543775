@@ -73,13 +73,12 @@ targets.forEach(function (target) {
     if (!isDragging && !isFollowing) return;
 
     //在拖移時如果按下第二隻手指則取消
-    console.log(event.isPrimary);
-    console.log(isDragging);
-    if (!event.isPrimary && isDragging) {
+    if (!event.isPrimary && (isDragging || isFollowing)) {
       console.log("還原 by 2 fingers");
       isDragging = false;
       targets.forEach(function (otherTarget) {
         otherTarget.classList.remove("dragging");
+        otherTarget.classList.remove("following");
       });
       currentTarget.style.left = offsetX + "px";
       currentTarget.style.top = offsetY + "px";
