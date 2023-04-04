@@ -22,19 +22,60 @@ workspaceDiv.addEventListener("click", function () {
   });
 });
 
-/* workspaceDiv.addEventListener("touchstart", function (event) {
+workspaceDiv.addEventListener("touchstart", function (event) {
   console.log(event.touches.length);
-  if (event.touches && event.touches.length > 1 && isDragging) {
-    console.log("還原 by 2 fingers");
-    isDragging = false;
-    targets.forEach(function (otherTarget) {
-      otherTarget.classList.remove("dragging");
-    });
-    currentTarget.style.left = offsetX + "px";
-    currentTarget.style.top = offsetY + "px";
-    return;
+  //縮放
+  console.log(event.touches);
+  if (event.touches.length === 2) {
+    isPinching = true;
+
+    // 記錄開始縮放時的兩指距離、div 大小和中心座標
+    const touch1 = event.touches[0];
+    const touch2 = event.touches[1];
+    pinchStartDistance = getDistance(
+      { x: touch1.clientX, y: touch1.clientY },
+      { x: touch2.clientX, y: touch2.clientY }
+    );
+    pinchStartSize = currentTarget.offsetWidth;
+    pinchStartX = currentTarget.offsetLeft + currentTarget.offsetWidth / 2;
+    pinchStartY = currentTarget.offsetTop + currentTarget.offsetHeight / 2;
   }
-}); */
+});
+workspaceDiv.addEventListener("touchmove", function (event) {
+  if (!isDragging && !isFollowing && !isPinching) return;
+  //縮放
+  if (!isDragging && !isFollowing && isPinching) {
+    console.log(event.touches);
+    if (event.touches.length === 2) {
+      // 計算兩指距離和比例
+      const touch1 = event.touches[0];
+      const touch2 = event.touches[1];
+      const distance = getDistance(
+        { x: touch1.clientX, y: touch1.clientY },
+        { x: touch2.clientX, y: touch2.clientY }
+      );
+      const scale = distance / pinchStartDistance;
+
+      // 計算新的 div 寬度、高度和中心座標
+      const newWidth = pinchStartSize * scale;
+      const newHeight = pinchStartSize * scale;
+      const newCenterX =
+        pinchStartX - (newWidth - currentTarget.offsetWidth) / 2;
+      const newCenterY =
+        pinchStartY - (newHeight - currentTarget.offsetHeight) / 2;
+
+      // 更新元素大小和位置
+      currentTarget.style.width = newWidth + "px";
+      currentTarget.style.height = newHeight + "px";
+      currentTarget.style.left =
+        newCenterX - currentTarget.offsetWidth / 2 + "px";
+      currentTarget.style.top =
+        newCenterY - currentTarget.offsetHeight / 2 + "px";
+    } else {
+      isPinching = false;
+    }
+  }
+});
 
 let currentTarget = null;
 let startX = 0;
@@ -63,22 +104,6 @@ targets.forEach(function (target) {
     console.log("pointer down");
     if (event.button !== 0) return; // 如果不是左鍵，則不處理
     event.preventDefault(); // 防止文字被選取
-    //縮放
-    console.log(event.touches);
-    if (event.pointerType === "touch" && event.touches.length === 2) {
-      isPinching = true;
-
-      // 記錄開始縮放時的兩指距離、div 大小和中心座標
-      const touch1 = event.touches[0];
-      const touch2 = event.touches[1];
-      pinchStartDistance = getDistance(
-        { x: touch1.clientX, y: touch1.clientY },
-        { x: touch2.clientX, y: touch2.clientY }
-      );
-      pinchStartSize = currentTarget.offsetWidth;
-      pinchStartX = currentTarget.offsetLeft + currentTarget.offsetWidth / 2;
-      pinchStartY = currentTarget.offsetTop + currentTarget.offsetHeight / 2;
-    }
 
     // 如果已經進入跟隨模式，則不處理
     if (isFollowing) return;
@@ -99,39 +124,7 @@ targets.forEach(function (target) {
 
   // 拖移中
   window.addEventListener("pointermove", function (event) {
-    if (!isDragging && !isFollowing && !isPinching) return;
-    //縮放
-    if (!isDragging && !isFollowing && isPinching) {
-      console.log(event.touches);
-      if (event.pointerType === "touch" && event.touches.length === 2) {
-        // 計算兩指距離和比例
-        const touch1 = event.touches[0];
-        const touch2 = event.touches[1];
-        const distance = getDistance(
-          { x: touch1.clientX, y: touch1.clientY },
-          { x: touch2.clientX, y: touch2.clientY }
-        );
-        const scale = distance / pinchStartDistance;
-
-        // 計算新的 div 寬度、高度和中心座標
-        const newWidth = pinchStartSize * scale;
-        const newHeight = pinchStartSize * scale;
-        const newCenterX =
-          pinchStartX - (newWidth - currentTarget.offsetWidth) / 2;
-        const newCenterY =
-          pinchStartY - (newHeight - currentTarget.offsetHeight) / 2;
-
-        // 更新元素大小和位置
-        currentTarget.style.width = newWidth + "px";
-        currentTarget.style.height = newHeight + "px";
-        currentTarget.style.left =
-          newCenterX - currentTarget.offsetWidth / 2 + "px";
-        currentTarget.style.top =
-          newCenterY - currentTarget.offsetHeight / 2 + "px";
-      } else {
-        isPinching = false;
-      }
-    }
+    if (!isDragging && !isFollowing) return;
 
     //在拖移時如果按下第二隻手指則取消
     if (!event.isPrimary && (isDragging || isFollowing)) {
