@@ -26,22 +26,15 @@ workspaceDiv.addEventListener("touchstart", function (event) {
   console.log(event.touches.length);
   //縮放
   let selectedElement = document.querySelector(".selected");
-
-  if (event.touches.length === 3 && isPinching) {
-    if (selectedElement) pichTarget = selectedElement;
-    else return;
-    console.log("還原 by 3 fingers");
-    isPinching = false;
-    targets.forEach(function (otherTarget) {
-      //otherTarget.classList.remove("d");
-    });
-    pinchTarget.style.left = offsetX + "px";
-    pinchTarget.style.top = offsetY + "px";
-    pinchTarget.style.width = pinchStartWidth + "px";
-    pinchTarget.style.height = pinchStartHeight + "px";
-    return;
+  if (event.touches.length === 1 && !isDragging && !isFollowing) {
+    startTime = new Date();
   }
   if (event.touches.length === 2 && !isDragging && !isFollowing) {
+    endTime = new Date();
+    console.log(endTime - startTime);
+    if (endTime - startTime > 100) {
+      return;
+    }
     if (selectedElement) pinchTarget = selectedElement;
     else return;
     isPinching = true;
@@ -57,6 +50,20 @@ workspaceDiv.addEventListener("touchstart", function (event) {
     console.log(pinchStartWidth);
     pinchStartX = pinchTarget.offsetLeft + pinchTarget.offsetWidth / 2;
     pinchStartY = pinchTarget.offsetTop + pinchTarget.offsetHeight / 2;
+  }
+  if (event.touches.length === 3 && isPinching) {
+    if (selectedElement) pichTarget = selectedElement;
+    else return;
+    console.log("還原 by 3 fingers");
+    isPinching = false;
+    targets.forEach(function (otherTarget) {
+      //otherTarget.classList.remove("d");
+    });
+    pinchTarget.style.left = offsetX + "px";
+    pinchTarget.style.top = offsetY + "px";
+    pinchTarget.style.width = pinchStartWidth + "px";
+    pinchTarget.style.height = pinchStartHeight + "px";
+    return;
   }
 });
 workspaceDiv.addEventListener("touchmove", function (event) {
@@ -107,6 +114,8 @@ let pinchStartWidth = 0; // 開始縮放時 div 寬度
 let pinchStartHeight = 0; // 開始縮放時 div 高度
 let pinchStartX = 0; // 開始縮放時 div 中心 X 座標
 let pinchStartY = 0; // 開始縮放時 div 中心 Y 座標
+let startTime = null;
+let endTime = null;
 // 判斷兩點之間距離
 function getDistance(point1, point2) {
   const xDistance = point2.x - point1.x;
