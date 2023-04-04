@@ -56,11 +56,8 @@ workspaceDiv.addEventListener("touchstart", function (event) {
     else return;
     console.log("還原 by 3 fingers");
     isPinching = false;
-    targets.forEach(function (otherTarget) {
-      //otherTarget.classList.remove("d");
-    });
-    pinchTarget.style.left = offsetX + "px";
-    pinchTarget.style.top = offsetY + "px";
+    pinchTarget.style.left = pinchStartX + "px";
+    pinchTarget.style.top = pinchStartY + "px";
     pinchTarget.style.width = pinchStartWidth + "px";
     pinchTarget.style.height = pinchStartHeight + "px";
     return;
